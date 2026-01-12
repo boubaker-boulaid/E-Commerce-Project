@@ -9,6 +9,7 @@ import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
 import './App.css'
 import AboutUs from './pages/AboutUs/AboutUs'
+import NotFound from './pages/NotFound/NotFound'
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
         <Route path='/contact-us' element={<ContactUs />} />
         <Route path='/about' element={<AboutUs />} />
         <Route path='/cart' element={<Cart />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />
     </>

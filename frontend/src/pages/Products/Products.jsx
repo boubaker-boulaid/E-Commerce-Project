@@ -8,11 +8,43 @@ import { useSearchParams } from "react-router-dom";
 const Products = () => {
   
   const [activeFilter, setActiveFilter] = useState('All');
+  const [searchParams, setSearchParams] = useSearchParams();
+    
+  const categorie = searchParams.get('categorie');
   
   const filters = ['All', 'Nike', 'Adidas', 'Puma', 'Bata', 'Apex'];
 
-  const filteredProducts = activeFilter === 'All' ? products : 
-        products.filter(p => p.mark === activeFilter) ;
+  // const filteredProducts = activeFilter === 'All' ? products : 
+  //       products.filter(p => p.mark === activeFilter) ;
+  // if (activeFilter !== 'All') {
+  //   const filteredProductsByMark = products.filter(p => p.mark === activeFilter);
+  //   setProducts(filteredProductsByMark)
+  // }
+
+  // if (categorie) {
+  //   const filteredProductsByCat = products.filter(p => p.categories.includes(categorie));
+  //   setProducts(filteredProductsByCat);
+  // }
+
+  const filteredProducts = products.filter(p => {
+    if (categorie) {
+      return p.categories.includes(categorie);
+    }
+    if (activeFilter !== 'All') {
+      return p.mark === activeFilter;
+    }
+    return p;
+  })
+  
+
+
+
+  console.log(categorie);
+  console.log(filteredProducts)
+
+
+
+  
   
   const productsList = filteredProducts.map(p => (
     <ProductCard {...p} key={p.id} />
@@ -29,8 +61,10 @@ const Products = () => {
                   <li key={filter}>
                     <button 
                       className={`filter-btn ${activeFilter === filter ? 'active' : ''}`}
-                      onClick={() => setActiveFilter(filter)}
-                    >
+                      onClick={() => {
+                        setActiveFilter(filter);
+                        setSearchParams(prev => prev.delete('categorie'))
+                      }}>
                       {filter}
                     </button>
                   </li>
