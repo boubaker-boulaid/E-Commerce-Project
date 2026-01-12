@@ -1,3 +1,63 @@
-.landing {
-  /* Landing styles */
+/* Hero Section Styles */
+
+.hero {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left;
+  min-height: 400px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.hero-title {
+  margin-bottom: 10px;
+}
+
+.hero-title > strong {
+  display: block;
+}
+
+.hero-text {
+  color: var(--onyx);
+  font-family: var(--ff-roboto);
+  font-size: var(--fs-8);
+  line-height: 1.8;
+  max-width: 46ch;
+  margin-bottom: 25px;
+}
+
+/* Responsive for larger than 575px screen */
+@media (min-width: 575px) {
+  .hero-text {
+    font-size: var(--fs-7);
+  }
+}
+
+/* Responsive for larger than 768px screen */
+@media (min-width: 768px) {
+  /* No additional styles needed */
+}
+
+/* Responsive for larger than 992px screen */
+@media (min-width: 992px) {
+  .hero {
+    height: 480px;
+  }
+}
+
+/* Responsive for larger than 1200px screen */
+@media (min-width: 1200px) {
+  .hero {
+    height: 580px;
+  }
+
+  .hero .container {
+    max-width: 1000px;
+  }
+
+  .hero-text {
+    font-size: var(--fs-6);
+    max-width: 50ch;
+  }
 }

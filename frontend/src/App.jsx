@@ -8,6 +8,7 @@ import Cart from './pages/Cart/Cart'
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
 import './App.css'
+import AboutUs from './pages/AboutUs/AboutUs'
 
 function App() {
   
@@ -20,6 +21,7 @@ function App() {
         <Route path='/products/:product' element={<ProductDetails />} />
         <Route path='/favorites' element={<Favorites />} />
         <Route path='/contact-us' element={<ContactUs />} />
+        <Route path='/about' element={<AboutUs />} />
         <Route path='/cart' element={<Cart />} />
       </Routes>
       <Footer />

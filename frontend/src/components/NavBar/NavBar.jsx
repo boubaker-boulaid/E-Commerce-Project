@@ -39,11 +39,6 @@ const NavBar = ({isMenuOpen, toggleMenu, logo}) => {
               </Link>
             </li>
             <li className="navbar-item">
-              <Link to="/blog" className="navbar-link">
-                Blog
-              </Link>
-            </li>
-            <li className="navbar-item">
               <Link to="/contact-us" className="navbar-link">
                 Contact
               </Link>
