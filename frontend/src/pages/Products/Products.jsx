@@ -14,18 +14,6 @@ const Products = () => {
   
   const filters = ['All', 'Nike', 'Adidas', 'Puma', 'Bata', 'Apex'];
 
-  // const filteredProducts = activeFilter === 'All' ? products : 
-  //       products.filter(p => p.mark === activeFilter) ;
-  // if (activeFilter !== 'All') {
-  //   const filteredProductsByMark = products.filter(p => p.mark === activeFilter);
-  //   setProducts(filteredProductsByMark)
-  // }
-
-  // if (categorie) {
-  //   const filteredProductsByCat = products.filter(p => p.categories.includes(categorie));
-  //   setProducts(filteredProductsByCat);
-  // }
-
   const filteredProducts = products.filter(p => {
     if (categorie) {
       return p.categories.includes(categorie);
@@ -36,15 +24,8 @@ const Products = () => {
     return p;
   })
   
-
-
-
   console.log(categorie);
   console.log(filteredProducts)
-
-
-
-  
   
   const productsList = filteredProducts.map(p => (
     <ProductCard {...p} key={p.id} />

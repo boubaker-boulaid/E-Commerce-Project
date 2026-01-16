@@ -17,8 +17,8 @@
   --onyx: hsl(0, 0%, 27%);
 
   /* Typography */
-  --ff-roboto: 'Roboto', sans-serif;
-  --ff-josefin-sans: 'Josefin Sans', sans-serif;
+  --ff-roboto: "Roboto", sans-serif;
+  --ff-josefin-sans: "Josefin Sans", sans-serif;
 
   --fs-1: 3rem;
   --fs-2: 2.6rem;
@@ -163,6 +163,7 @@ body {
   gap: 5px;
   padding: 14px 25px;
   border: 1px solid var(--border-color, var(--bittersweet));
+  width: max-content;
 }
 
 .btn-primary:is(:hover, :focus) {
