@@ -1,10 +1,17 @@
-import {Link} from 'react-router-dom'
-import './ProductCard.css'
+import { Link } from "react-router-dom";
+import "./ProductCard.css";
 // ProductCard component - displays a single product with image, actions, and details
-function ProductCard({image, title, categories, price}) {
-  const categoriesList = categories.map((cat,index) => (
-    <Link to={`/products?categorie=${cat}`} className="card-cat-link" key={index}>  ({cat}) </Link>
-  ))
+function ProductCard({ image, title, categories, price }) {
+  const categoriesList = categories.map((cat, index) => (
+    <Link
+      to={`/products?category=${cat}`}
+      className="card-cat-link"
+      key={index}
+    >
+      {" "}
+      ({cat}){" "}
+    </Link>
+  ));
 
   return (
     <li className="product-item">
@@ -20,7 +27,6 @@ function ProductCard({image, title, categories, price}) {
             alt="Running Sneaker Shoes"
             className="image-contain"
           />
-
 
           {/* Action Buttons - appear on hover */}
           <ul className="card-action-list">
@@ -71,9 +77,7 @@ function ProductCard({image, title, categories, price}) {
         {/* Product Details Section */}
         <div className="card-content">
           {/* Product Categories */}
-          <div className="card-cat">
-            {categoriesList}
-          </div>
+          <div className="card-cat">{categoriesList}</div>
 
           {/* Product Title */}
           <h3 className="h3 card-title">
