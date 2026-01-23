@@ -13,27 +13,26 @@ class Product extends Model
     protected $fillable = ['name', 'price', 'brand', 'category', 'description', 'stock', 'inStock', 'primaryImg', 'secondaryImg'];
 
     protected $casts = [
-        'category' => 'array',
         'price' => 'decimal:2',
         'stock' => 'integer',
         'inStock' => 'boolean'
     ];
 
-    public function getPrimaryImgUrlAttribute ()
+    public function getPrimaryImgUrlAttribute()
     {
-        if (str_starts_with($this->primaryImg,'http') || str_starts_with($this->primaryImg,'./')) {
+        if (str_starts_with($this->primaryImg, 'http') || str_starts_with($this->primaryImg, './')) {
             return $this->primaryImg;
         }
-        return $this->primaryImg ? asset('storage/'.$this->primaryImg) : null;
+        return $this->primaryImg ? asset('storage/' . $this->primaryImg) : null;
     }
 
-    public function getSecondaryImgUrlAttribute ()
+    public function getSecondaryImgUrlAttribute()
     {
-        if (str_starts_with($this->secondaryImg,'http') || str_starts_with($this->secondaryImg,'./')) {
+        if (str_starts_with($this->secondaryImg, 'http') || str_starts_with($this->secondaryImg, './')) {
             return $this->secondaryImg;
         }
-        return $this->secondaryImg ? asset('storage/'.$this->secondaryImg) : null;
+        return $this->secondaryImg ? asset('storage/' . $this->secondaryImg) : null;
     }
 
-    protected $appends = ['primary_img_url','secondary_img_url'];
+    protected $appends = ['primary_img_url', 'secondary_img_url'];
 }

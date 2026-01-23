@@ -1,30 +1,17 @@
 import { Link } from "react-router-dom";
 import "./ProductCard.css";
 // ProductCard component - displays a single product with image, actions, and details
-function ProductCard({ image, title, categories, price }) {
-  const categoriesList = categories.map((cat, index) => (
-    <Link
-      to={`/products?category=${cat}`}
-      className="card-cat-link"
-      key={index}
-    >
-      {" "}
-      ({cat}){" "}
-    </Link>
-  ));
-
+function ProductCard({ image, title, category, price }) {
   return (
     <li className="product-item">
       <div className="product-card" tabIndex="0">
-        {/* Product Image Section */}
         <figure className="card-banner">
-          {/* Product Image */}
           <img
             src={image}
             width="312"
             height="350"
             loading="lazy"
-            alt="Running Sneaker Shoes"
+            alt={title}
             className="image-contain"
           />
 
@@ -77,7 +64,15 @@ function ProductCard({ image, title, categories, price }) {
         {/* Product Details Section */}
         <div className="card-content">
           {/* Product Categories */}
-          <div className="card-cat">{categoriesList}</div>
+          <div className="card-cat">
+            <Link
+              to={`/products?category=${category}`}
+              className="card-cat-link"
+            >
+              {" "}
+              ({category}){" "}
+            </Link>
+          </div>
 
           {/* Product Title */}
           <h3 className="h3 card-title">

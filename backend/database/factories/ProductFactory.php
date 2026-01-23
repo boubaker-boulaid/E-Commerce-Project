@@ -20,7 +20,7 @@ class ProductFactory extends Factory
             'name' => $this->faker->unique()->sentence(2),
             'price' => $this->faker->randomFloat(2, 10, 99999),
             'brand' => $this->faker->randomElement(['Nike', 'Adidas', 'Puma', 'Bata', 'Apex']),
-            'category' => $this->faker->randomElements(['Sports', 'Men', 'Women']),
+            'category' => $this->faker->randomElement(['Sports', 'Men', 'Women']),
             'description' => $this->faker->sentence(20),
             'stock' => $this->faker->numberBetween(1, 100),
             'primaryImg' => './assets/images/product-' . $this->faker->numberBetween(1, 8) . '.jpg',

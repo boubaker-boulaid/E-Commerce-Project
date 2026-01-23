@@ -10,18 +10,35 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Product::query();
+
+        // filter by category
+        if ($request->filled('category')) {
+            $query->where('category',$request->category);
+        }
+
+        // filter by brand
+        if ($request->filled('brand')) {
+            $query->where('brand',$request->brand);
+        }
+
+        if ($request->filled('sort')) {
+            [$feildToSort,$direction] = explode('_', $request->sort);
+
+            $query->orderBy($feildToSort,$direction);
+        }
+
+        if ($request->filled('inStock')) {
+            $query->where('inStock',$request->boolean('inStock'));
+        }
+
+        $products = $query->paginate(8);
+
+        return response()->json($products, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -39,13 +56,6 @@ class ProductController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

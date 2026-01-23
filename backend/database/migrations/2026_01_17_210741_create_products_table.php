@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->decimal('price', 8, 2);
             $table->string('brand');
-            $table->json('category');
+            $table->string('category');
             $table->text('description')->nullable();
             $table->integer('stock')->default(0);
             $table->boolean('inStock')->default(true);

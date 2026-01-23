@@ -14,7 +14,7 @@ const Products = () => {
 
   const filteredProducts = products.filter((p) => {
     if (category) {
-      return p.categories.includes(category);
+      return p.category === category;
     }
     if (activeFilter !== "All") {
       return p.mark === activeFilter;
