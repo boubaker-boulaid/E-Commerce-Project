@@ -1,34 +1,49 @@
 import React, { useState } from "react";
 import "./Products.css";
 import ProductCard from "../../components/ProductCard/ProductCard";
-import { products } from "../../assets/products";
+// import { products } from "../../assets/products";
 import { useSearchParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 
 const Products = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const category = searchParams.get("category");
+
+  // const category = searchParams.get("category");
+
+  const {
+    data: products,
+    isLoading,
+    error,
+  } = useFetch(`/products?${searchParams.toString()}`);
+
+
 
   const filters = ["All", "Nike", "Adidas", "Puma", "Bata", "Apex"];
 
-  const filteredProducts = products.filter((p) => {
-    if (category) {
-      return p.category === category;
-    }
-    if (activeFilter !== "All") {
-      return p.mark === activeFilter;
-    }
-    return p;
-  });
+  const updatePathQuery = (query,value) => {
+    const newParams = new URLSearchParams(searchParams);
 
-  console.log(category);
-  console.log(filteredProducts);
+    newParams.set(query,value);
 
-  const productsList = filteredProducts.map((p) => (
+    setSearchParams(newParams);
+  }
+
+
+  // console.log("category:", category);
+  console.log("products:", products);
+
+  // Handle Laravel pagination: actual products are in products.data if paginated
+  const actualProducts = Array.isArray(products)
+    ? products
+    : products?.data || [];
+
+  const productsList = actualProducts.map((p) => (
     <ProductCard {...p} key={p.id} />
   ));
 
+ 
   return (
     <>
       <section className="section product">
@@ -42,11 +57,11 @@ const Products = () => {
                   className={`filter-btn ${activeFilter === filter ? "active" : ""}`}
                   onClick={() => {
                     setActiveFilter(filter);
-                    setSearchParams((prev) => {
+                    filter === "All" ?  setSearchParams((prev) => {
                       const newParams = new URLSearchParams(prev);
-                      newParams.delete("category");
+                      newParams.delete("brand");
                       return newParams;
-                    });
+                    }) : updatePathQuery('brand',filter);
                   }}
                 >
                   {filter}
@@ -56,6 +71,9 @@ const Products = () => {
           </ul>
 
           <ul className="product-list">{productsList}</ul>
+
+          <button>next</button>
+          <button>next</button>
         </div>
       </section>
     </>

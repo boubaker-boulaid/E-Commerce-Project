@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import "./ProductCard.css";
 // ProductCard component - displays a single product with image, actions, and details
-function ProductCard({ image, title, category, price }) {
+function ProductCard({ primaryImg, title, category, price }) {
   return (
     <li className="product-item">
       <div className="product-card" tabIndex="0">
         <figure className="card-banner">
           <img
-            src={image}
+            src={primaryImg}
             width="312"
             height="350"
             loading="lazy"
