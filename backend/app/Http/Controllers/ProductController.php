@@ -16,22 +16,25 @@ class ProductController extends Controller
 
         // filter by category
         if ($request->filled('category')) {
-            $query->where('category',$request->category);
+            $query->where('category', $request->category);
         }
 
         // filter by brand
         if ($request->filled('brand')) {
-            $query->where('brand',$request->brand);
+            $query->where('brand', $request->brand);
         }
 
         if ($request->filled('sort')) {
-            [$feildToSort,$direction] = explode('_', $request->sort);
+            [$feildToSort, $direction] = explode('-', $request->sort);
 
-            $query->orderBy($feildToSort,$direction);
+            $query->orderBy($feildToSort, $direction);
+        } else {
+            // Only apply default sorting if no custom sort is specified
+            $query->latest();
         }
 
         if ($request->filled('inStock')) {
-            $query->where('inStock',$request->boolean('inStock'));
+            $query->where('inStock', $request->boolean('inStock'));
         }
 
         $products = $query->paginate(8);
@@ -45,7 +48,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -53,7 +56,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return response()->json($product, 200);
     }
 
 

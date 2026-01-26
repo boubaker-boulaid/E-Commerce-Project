@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./ProductCard.css";
 // ProductCard component - displays a single product with image, actions, and details
-function ProductCard({ primaryImg, title, category, price }) {
+function ProductCard({ id, primaryImg, title, category, price }) {
   return (
     <li className="product-item">
       <div className="product-card" tabIndex="0">
@@ -47,12 +47,19 @@ function ProductCard({ primaryImg, title, category, price }) {
 
             {/* Quick View */}
             <li className="card-action-item">
-              <button
+              {/* <button
+                
+
+                onClick={}
+              > */}
+              <Link to={`/products/${id}`}  
                 className="card-action-btn"
                 aria-labelledby="card-label-3"
               >
                 <ion-icon name="eye-outline"></ion-icon>
-              </button>
+              </Link>
+                
+              
 
               <div className="card-action-tooltip" id="card-label-3">
                 Quick View

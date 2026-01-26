@@ -1,3 +1,108 @@
-.products {
-  /* Products styles */
+/* Products Header */
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--gainsboro);
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.products-count {
+  color: var(--rich-black-fogra-29);
+  font-size: var(--fs-4);
+  font-weight: var(--fw-500);
+  margin: 0;
+}
+
+/* Sort Wrapper */
+.sort-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-label {
+  color: var(--onyx);
+  font-family: var(--ff-roboto);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-500);
+}
+
+.sort-select {
+  padding: 10px 16px;
+  font-family: var(--ff-roboto);
+  font-size: var(--fs-7);
+  color: var(--onyx);
+  border: 1px solid var(--gainsboro);
+  border-radius: 30px;
+  background: var(--white);
+  cursor: pointer;
+  transition: var(--transition-1);
+  min-width: 180px;
+}
+
+.sort-select:hover {
+  border-color: var(--bittersweet);
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: var(--bittersweet);
+  box-shadow: 0 0 0 3px var(--maximum-blue-green_10);
+}
+
+/* Pagination Controls */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid var(--gainsboro);
+}
+
+.pagination-controls .btn {
+  min-width: 120px;
+  justify-content: center;
+}
+
+.pagination-controls .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive Styles */
+@media (max-width: 575px) {
+  .products-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sort-wrapper {
+    width: 100%;
+  }
+
+  .sort-select {
+    flex: 1;
+    min-width: auto;
+  }
+
+  .pagination-controls {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .pagination-controls .btn {
+    width: 100%;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .products-count {
+    font-size: var(--fs-5);
+  }
 }
