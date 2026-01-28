@@ -18,6 +18,10 @@ const Products = () => {
     error,
   } = useFetch(`/products?${searchParams?.toString()}`);
 
+  const lastPage = products.last_page ;
+
+  console.log('last_page', lastPage);
+
   const filters = ["All", "Nike", "Adidas", "Puma", "Bata", "Apex"];
 
   const updatePathQuery = (query, value) => {
@@ -87,6 +91,7 @@ const Products = () => {
   ));
 
   console.log("products count", productsCount);
+  
   if (error) return <div>{error} </div>
 
   return (
@@ -152,7 +157,7 @@ const Products = () => {
                   ? updatePathQuery("page", Number(page) + 1)
                   : updatePathQuery("page", 2);
               }}
-              disabled={Number(productsCount) < 8}
+              disabled={Number(page) === Number(lastPage)}
             >
               Next
             </button>

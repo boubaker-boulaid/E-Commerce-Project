@@ -13,7 +13,6 @@ const useFetch = (url) => {
                 const response = await apiProducts.get(url);
                 setData(response.data); // Axios response data is in .data
             } catch (err) {
-                console.error(err);
                 setError(err.message);
             } finally {
                 setIsLoading(false)

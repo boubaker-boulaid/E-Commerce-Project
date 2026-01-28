@@ -21,7 +21,7 @@ const Header = () => {
 
         <Link to="/" className="logo">
           <img
-            src="./assets/images/logo.svg"
+            src="/assets/images/logo.svg"
             width="160"
             height="50"
             alt="Footcap logo"
@@ -37,8 +37,7 @@ const Header = () => {
           <ion-icon name="menu-outline"></ion-icon>
         </button>
 
-        <NavBar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu}  />
-
+        <NavBar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       </div>
     </header>
   );
