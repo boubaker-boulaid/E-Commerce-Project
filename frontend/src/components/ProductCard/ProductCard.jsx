@@ -1,7 +1,23 @@
 import { Link } from "react-router-dom";
 import "./ProductCard.css";
-// ProductCard component - displays a single product with image, actions, and details
+import { useFavorites } from "../../hooks/useFavorites";
+
+
 function ProductCard({ id, primaryImg, title, category, price }) {
+  const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
+
+  const terget = favorites.find((item) => item.id === id);
+  const isFavorite = terget ? true : false ;
+
+  const handleFavoriteClick = (e) => {
+    e.preventDefault(); 
+    if (isFavorite) {
+      removeFromFavorites(id);
+    } else {
+      addToFavorites(id);
+    }
+  };
+
   return (
     <li className="product-item">
       <div className="product-card" tabIndex="0">
@@ -34,14 +50,18 @@ function ProductCard({ id, primaryImg, title, category, price }) {
             {/* Add to favorite */}
             <li className="card-action-item">
               <button
-                className="card-action-btn"
+                className={`card-action-btn ${isFavorite ? "active" : ""}`}
                 aria-labelledby="card-label-2"
+                onClick={handleFavoriteClick}
+                style={{ color: isFavorite ? "var(--bittersweet)" : "" }}
               >
-                <ion-icon name="heart-outline"></ion-icon>
+                <ion-icon
+                  name={isFavorite ? "heart" : "heart-outline"}
+                ></ion-icon>
               </button>
 
               <div className="card-action-tooltip" id="card-label-2">
-                Add to favorite
+                {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
               </div>
             </li>
 
@@ -52,14 +72,13 @@ function ProductCard({ id, primaryImg, title, category, price }) {
 
                 onClick={}
               > */}
-              <Link to={`/products/${id}`}  
+              <Link
+                to={`/products/${id}`}
                 className="card-action-btn"
                 aria-labelledby="card-label-3"
               >
                 <ion-icon name="eye-outline"></ion-icon>
               </Link>
-                
-              
 
               <div className="card-action-tooltip" id="card-label-3">
                 Quick View

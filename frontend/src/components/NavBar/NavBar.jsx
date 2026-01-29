@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { useAuth } from "../../hooks/useAuth";
+import { useFavorites } from "../../hooks/useFavorites";
 
 const NavBar = ({ isMenuOpen, toggleMenu, logo }) => {
   const { isLogin, logout, user } = useAuth();
+  const { favoritesCount } = useFavorites();
 
   const userTextProfile = user?.name ? user.name.slice(0, 2).toUpperCase() : "";
 
@@ -67,7 +69,7 @@ const NavBar = ({ isMenuOpen, toggleMenu, logo }) => {
           <Link to="/favorites" className="nav-action-btn">
             <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
             <data className="nav-action-badge" value="5" aria-hidden="true">
-              5
+              {favoritesCount}
             </data>
           </Link>
         </li>

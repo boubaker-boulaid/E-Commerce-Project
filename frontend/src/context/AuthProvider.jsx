@@ -24,6 +24,25 @@ function AuthProvider({ children }) {
     }
   }, [user]);
 
+  // Verify session validity on mount to prevent "ghost" logins
+  useEffect(() => {
+    const verifySession = async () => {
+      if (user) {
+        try {
+          await apiAuth.get("/api/user");
+        } catch (error) {
+          if (error.response?.status === 401) {
+            // Session expired on server, log out on client
+            setUser(null);
+            setIsLogin(false);
+            localStorage.removeItem("user");
+          }
+        }
+      }
+    };
+    verifySession();
+  }, []);
+
   const handleAuth = async (endPoint, userData) => {
     try {
       setLoading(true);

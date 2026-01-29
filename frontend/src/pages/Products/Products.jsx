@@ -9,20 +9,17 @@ const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [sort, setSort] = useState(null);
 
-  const page = searchParams.get("page");
-  // const category = searchParams.get("category");
-
+  const filters = ["All", "Nike", "Adidas", "Puma", "Bata", "Apex"];
   const {
     data: products,
     isLoading,
     error,
   } = useFetch(`/products?${searchParams?.toString()}`);
+  
+  const page = searchParams.get("page");
 
   const lastPage = products.last_page ;
-
   console.log('last_page', lastPage);
-
-  const filters = ["All", "Nike", "Adidas", "Puma", "Bata", "Apex"];
 
   const updatePathQuery = (query, value) => {
     const newParams = new URLSearchParams(searchParams);
@@ -53,6 +50,7 @@ const Products = () => {
     setSearchParams(newParams);
   };
 
+  // handle the sort select
   const handlSelectChange = (e) => {
     const newSort = e.target.value;
     setSort(newSort);
@@ -69,29 +67,24 @@ const Products = () => {
     setSearchParams(newParams);
   };
 
+  // scroll to the top in the new page
   useEffect(() => {
     if (!isLoading) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [page, isLoading]);
 
-  // console.log("category:", category);
-  console.log("products:", products);
-  console.log("page", page);
 
   // Handle Laravel pagination: actual products are in products.data if paginated
-  const actualProducts = Array.isArray(products)
-    ? products
-    : products?.data || [];
+  const actualProducts = products.data
 
   const productsCount = Object.keys(actualProducts).length;
+  console.log("products count", productsCount);
 
   const productsList = actualProducts.map((p) => (
     <ProductCard {...p} key={p.id} />
   ));
 
-  console.log("products count", productsCount);
-  
   if (error) return <div>{error} </div>
 
   return (
@@ -100,6 +93,7 @@ const Products = () => {
         <div className="container">
           <h2 className="h2 section-title">Our Products</h2>
 
+          {/* filter by brand section */}
           <ul className="filter-list">
             {filters.map((filter) => (
               <li key={filter}>
@@ -118,6 +112,8 @@ const Products = () => {
 
           <div className="products-header">
             <h3 className="products-count">{productsCount} Products</h3>
+            
+            {/* sort selection section */}
             <div className="sort-wrapper">
               <label htmlFor="sort-select" className="sort-label">
                 Sort by:
@@ -138,6 +134,7 @@ const Products = () => {
 
           <ul className="product-list">{productsList}</ul>
 
+          {/* pagination sction */}
           <div className="pagination-controls">
             <button
               className="btn btn-secondary"
@@ -157,7 +154,7 @@ const Products = () => {
                   ? updatePathQuery("page", Number(page) + 1)
                   : updatePathQuery("page", 2);
               }}
-              disabled={Number(page) === Number(lastPage)}
+              disabled={(Number(page) === Number(lastPage) || Number(productsCount) < 8)} 
             >
               Next
             </button>
