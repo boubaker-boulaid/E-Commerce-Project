@@ -15,8 +15,12 @@ function Register() {
     password_confirmation: "",
   };
 
-  const { register, error, loading } = useAuth();
+  const { register, error, loading, setError } = useAuth();
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    setError(null);
+  }, []);
 
   const onValidSubmit = async (data, reset) => {
     const newUser = await register(data);
@@ -31,6 +35,7 @@ function Register() {
     registerValidationRules,
     onValidSubmit,
   );
+
 
   return (
     <section className="section auth-section">

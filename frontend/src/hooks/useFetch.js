@@ -15,6 +15,7 @@ const useFetch = (url) => {
             const response = await apiProducts.get(url);
             setData(response.data);
         } catch (err) {
+            console.error("error fetching resource", err)
             setError(err.message);
         } finally {
             setIsLoading(false);

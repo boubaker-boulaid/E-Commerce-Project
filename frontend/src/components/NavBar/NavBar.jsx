@@ -2,10 +2,14 @@ import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { useAuth } from "../../hooks/useAuth";
 import { useFavorites } from "../../hooks/useFavorites";
+import { useCart } from "../../hooks/useCart";
 
-const NavBar = ({ isMenuOpen, toggleMenu, logo }) => {
+const NavBar = ({ isMenuOpen, toggleMenu }) => {
   const { isLogin, logout, user } = useAuth();
   const { favoritesCount } = useFavorites();
+  const {cartItemsCount} = useCart();
+
+  console.log("cartCounnnnnttttttt", cartItemsCount);
 
   const userTextProfile = user?.name ? user.name.slice(0, 2).toUpperCase() : "";
 
@@ -78,7 +82,7 @@ const NavBar = ({ isMenuOpen, toggleMenu, logo }) => {
             <ion-icon name="bag-outline" aria-hidden="true"></ion-icon>
             <data className="nav-action-text" value="318.00"></data>
             <data className="nav-action-badge" value="4" aria-hidden="true">
-              4
+              {cartItemsCount}
             </data>
           </Link>
         </li><li>

@@ -8,7 +8,11 @@ import "./Login.css";
 function Login() {
   const navigate = useNavigate();
 
-  const { loading, login, error } = useAuth();
+  const { loading, login, error, setError } = useAuth();
+
+  React.useEffect(() => {
+    setError(null);
+  }, [setError]);
 
   const initialData = {
     email: "",
@@ -26,8 +30,9 @@ function Login() {
     }
   };
 
-  const { formData, formErrors, handleChange, resetForm, handleSubmit } =
+  const { formData, formErrors, handleChange,  handleSubmit } =
     useForm(initialData, loginValidationRules, onValidSubmit);
+
 
   return (
     <section className="section auth-section">

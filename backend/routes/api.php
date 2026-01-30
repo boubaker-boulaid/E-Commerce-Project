@@ -4,6 +4,7 @@ use App\Http\Controllers\FavoriteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 Route::apiResource('products', ProductController::class);
 
@@ -16,4 +17,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/favorites', [FavoriteController::class, 'index']);
     Route::post('/favorites', [FavoriteController::class, 'store']);
     Route::delete('/favorites/{productId}', [FavoriteController::class, 'destroy']);
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/cart', [CartController::class, 'index']);
+    Route::post('/cart', [CartController::class, 'store']);
+    Route::delete('/cart/{id}', [CartController::class, 'destroy']);
 });

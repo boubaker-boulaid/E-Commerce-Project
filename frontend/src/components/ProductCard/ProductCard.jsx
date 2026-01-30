@@ -1,22 +1,36 @@
 import { Link } from "react-router-dom";
 import "./ProductCard.css";
 import { useFavorites } from "../../hooks/useFavorites";
+import { useCart } from "../../hooks/useCart";
 
 
 function ProductCard({ id, primaryImg, title, category, price }) {
-  const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
+  const {addToFavorites, removeFromFavorites, inFavorites } = useFavorites();
+  const {addUpdateCart, inCart, removeFromCart} = useCart();
 
-  const terget = favorites.find((item) => item.id === id);
-  const isFavorite = terget ? true : false ;
+  const isInCart = inCart(id);
+  const isFavorite = inFavorites(id);
 
-  const handleFavoriteClick = (e) => {
-    e.preventDefault(); 
+  const handleFavoriteClick = () => {
     if (isFavorite) {
       removeFromFavorites(id);
     } else {
       addToFavorites(id);
     }
   };
+
+
+  const handlePanierClick = () => {
+    if (isInCart) {
+      if (confirm("remove from cart?")) {
+        removeFromCart(id);
+      }
+    } else {
+      addUpdateCart(id, 1);
+    } 
+  }
+
+
 
   return (
     <li className="product-item">
@@ -38,8 +52,10 @@ function ProductCard({ id, primaryImg, title, category, price }) {
               <button
                 className="card-action-btn"
                 aria-labelledby="card-label-1"
+                onClick={handlePanierClick}
+                style={{color: isInCart ? "var(--bittersweet)" : ""}}
               >
-                <ion-icon name="cart-outline"></ion-icon>
+                <ion-icon name={isInCart ? "cart" : "cart-outline"}></ion-icon>
               </button>
 
               <div className="card-action-tooltip" id="card-label-1">
@@ -67,11 +83,6 @@ function ProductCard({ id, primaryImg, title, category, price }) {
 
             {/* Quick View */}
             <li className="card-action-item">
-              {/* <button
-                
-
-                onClick={}
-              > */}
               <Link
                 to={`/products/${id}`}
                 className="card-action-btn"
@@ -95,8 +106,7 @@ function ProductCard({ id, primaryImg, title, category, price }) {
               to={`/products?category=${category}`}
               className="card-cat-link"
             >
-              {" "}
-              ({category}){" "}
+              ({category})
             </Link>
           </div>
 

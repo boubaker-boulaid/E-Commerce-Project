@@ -76,7 +76,7 @@ const Products = () => {
 
 
   // Handle Laravel pagination: actual products are in products.data if paginated
-  const actualProducts = products.data
+  const actualProducts = Array.isArray(products) ? products : products.data
 
   const productsCount = Object.keys(actualProducts).length;
   console.log("products count", productsCount);

@@ -47,6 +47,7 @@ function AuthProvider({ children }) {
     try {
       setLoading(true);
       setUser(null); //clear the previous user
+      setError(null);
 
       await apiAuth.get("sanctum/csrf-cookie"); //get the cookie
       await apiAuth.post(endPoint, userData);
@@ -58,6 +59,7 @@ function AuthProvider({ children }) {
       return res.data;
     } catch (err) {
       console.error("Auth error", err);
+      console.error("errrrrrrrrrrrrrrrrrr", err?.response?.data?.message);
       if (err.status === 422) {
         setError("invalide email or password !");
       } else {
@@ -74,6 +76,7 @@ function AuthProvider({ children }) {
 
   const logout = async () => {
     try {
+      setError(null);
       await apiAuth.post("logout", {});
       setUser(null);
       setIsLogin(false);
@@ -95,6 +98,7 @@ function AuthProvider({ children }) {
       register,
       logout,
       error,
+      setError,
       isAdmin,
       isLogin,
     }),
