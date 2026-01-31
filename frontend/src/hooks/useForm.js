@@ -2,6 +2,7 @@ import { useState } from "react"
 
 export const useForm = (initialData, validationRules, onValidSubmit) => {
     const [formData, setFormData] = useState(initialData);
+    const [imagePreview, setImagePreview] = useState(initialData?.primaryImage || null);
     const [formErrors, setFormErrors] = useState({});
 
     const validateField = (fieldName, fieldValue) => {
@@ -31,16 +32,37 @@ export const useForm = (initialData, validationRules, onValidSubmit) => {
     }
 
     const handleChange = (e) => {
-        const {value, name} = e.target;
+        const { type, value, name, files } = e.target;
 
-        setFormData(prev => ({...prev,[name]:value}));
+        if (type === 'file') {
+            const file = files[0];
+            console.log("fileeeeeeeeeeeeeeeeeeeee", file);
+            console.log("fileeeeeeeeeeeeeeeeeeeeessss", files);
 
-        const err = validateField(name, value);
-        setFormErrors(prev => ({...prev, [name]: err}));
+            if (file) {
+                setFormData(prev => ({ ...prev, [name]: file }));
+                const err = validateField(name, file);
+                setFormErrors(prev => ({ ...prev, [name]: err }));
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    setImagePreview(reader.result);
+                }
+                reader.readAsDataURL(file);
+
+            }
+        } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+
+            const err = validateField(name, value);
+            setFormErrors(prev => ({ ...prev, [name]: err }));
+        }
+
+
     }
 
     const resetForm = () => {
         setFormData(initialData);
+        setImagePreview(initialData?.primaryImage || null)
         setFormErrors({});
     }
 
@@ -54,6 +76,7 @@ export const useForm = (initialData, validationRules, onValidSubmit) => {
 
     return {
         formData,
+        imagePreview,
         formErrors,
         handleChange,
         resetForm,

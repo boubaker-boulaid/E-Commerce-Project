@@ -16,16 +16,24 @@ import UserRoutes from "./routes/UserRoutes";
 import AdminRoute from "./routes/AdminRoute";
 import AdminLayout from "./layouts/AdminLayout";
 import Register from "./pages/Register/Register";
+import Dashboard from "./pages/Admin/Dashboard/Dashboard";
+import AllProducts from "./pages/Admin/Products/AllProducts";
+import AllUsers from "./pages/Admin/Users/AllUsers";
+import AddProduct from "./pages/Admin/Products/AddProduct";
+import EditeProduct from "./pages/Admin/Products/EditeProduct";
 
 function App() {
-  const { isLogin, isAdmin } = useAuth();
   return (
     <>
       <Routes>
 
         {/* admin routes */}
         <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>} >
-            
+            <Route index element={<Dashboard />} />
+            <Route path="products" element={<AllProducts />} />
+            <Route path="products/add" element={<AddProduct />} />
+            <Route path="products/edite/:id" element={<EditeProduct />} />
+            <Route path="users" element={<AllUsers />} />
         </Route>
 
         {/* users routes */}
@@ -39,9 +47,11 @@ function App() {
           <Route path="about" element={<AboutUs />} />
         </Route>
         
+        {/* auth routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
+        {/* 404 not found route */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

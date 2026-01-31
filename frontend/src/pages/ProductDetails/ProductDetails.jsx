@@ -2,12 +2,13 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import "./ProductDetails.css";
 import useFetch from "../../hooks/useFetch";
+import { useResource } from "../../hooks/useResource";
 
 const ProductDetails = () => {
   const {id} = useParams();
 
-  const {data,error} = useFetch(`/products/${id}`);
-  console.log('products', data);
+  const { data:product, error } = useResource(`/products/${id}`);
+  console.log('product from product details', product);
   return (
     <section className="product-details section">
       <div className="container">

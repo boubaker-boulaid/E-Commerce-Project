@@ -1,0 +1,106 @@
+/* AdminLayout.css */
+.admin-section {
+  background-color: var(--cultured);
+  min-height: 100vh;
+  padding-block: 40px;
+}
+
+.admin-container {
+  display: grid;
+  gap: 30px;
+}
+
+@media (min-width: 992px) {
+  .admin-container {
+    grid-template-columns: 280px 1fr;
+    align-items: start;
+  }
+}
+
+/* Sidebar Specifics that are global to admin */
+.dashboard-sidebar {
+  background: var(--white);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px hsla(0, 0%, 0%, 0.05);
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+.user-profile {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--gainsboro);
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  background: var(--bittersweet);
+  color: var(--white);
+  font-size: 3rem;
+  font-weight: var(--fw-600);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-inline: auto;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px hsla(5, 100%, 69%, 0.3);
+}
+
+.user-name {
+  font-size: var(--fs-4);
+  color: var(--rich-black-fogra-29);
+  font-weight: var(--fw-600);
+  margin-bottom: 5px;
+}
+
+.user-role {
+  color: var(--onyx);
+  font-size: var(--fs-7);
+  font-weight: var(--fw-500);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sidebar-nav {
+  margin-bottom: 30px;
+}
+
+.nav-item {
+  margin-bottom: 8px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--onyx);
+  font-size: var(--fs-6);
+  padding: 12px 20px;
+  border-radius: 6px;
+  transition: var(--transition-1);
+}
+
+.nav-link ion-icon {
+  font-size: 20px;
+}
+
+.nav-link:is(:hover, :focus, .active) {
+  background: var(--bittersweet);
+  color: var(--white);
+}
+
+.logout-btn {
+  width: 100%;
+  justify-content: center;
+  border: 1px solid var(--gainsboro);
+}
+
+.logout-btn:hover {
+  background: var(--rich-black-fogra-29);
+  color: var(--white);
+  border-color: var(--rich-black-fogra-29);
+}

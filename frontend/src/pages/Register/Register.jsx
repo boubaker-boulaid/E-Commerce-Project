@@ -36,6 +36,7 @@ function Register() {
     onValidSubmit,
   );
 
+  
 
   return (
     <section className="section auth-section">

@@ -7,35 +7,20 @@ export const useResource = (url) => {
 
     const {data, error, refetch} = useFetch(user ? url : null);
 
-    const addToResource = async (resourceData) => {
+    const actionToResource = async (newUrl=null,method,resourceData=null) => {
         try {
-            await apiProducts.post(url, resourceData);
+            const res = await apiProducts[method](newUrl ? url + newUrl : url,resourceData);
             refetch();
+            return res;
         } catch (err) {
-            console.error('error adding to resource', err);
+            console.error('error from useResource', err);
+            throw err;
         }
     }
-
-    const removeFromResource = async (id) => {
-        try {
-            await apiProducts.delete(`${url}/${id}`);
-            refetch();
-        } catch (err) {
-            console.error('error removing from resource', err);
-        }
-        
-    }
-
-    // const inResource = (id) => {
-    //     const target = data.find(p => p.product_id === id);
-    //     if(!target) return false;
-    //     return true;
-    // }
 
     return {
         data,
         error,
-        addToResource,
-        removeFromResource,
+        actionToResource
     }
 }

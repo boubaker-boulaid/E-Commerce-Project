@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductStoreUpdateRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -46,9 +47,16 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductStoreUpdateRequest $request)
     {
-        
+        $validated = $request->validated();
+
+        $newProduct = Product::create($validated);
+
+        return response()->json([
+            'message' => 'product created successfully',
+            'product' => $newProduct
+        ], 201);
     }
 
     /**
@@ -63,9 +71,15 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductStoreUpdateRequest $request, Product $product)
     {
-        //
+        $validated = $request->validated();
+
+        $product->update($validated);
+
+        return response()->json([
+            'message' => 'product updated successfully'
+        ], 200);
     }
 
     /**
@@ -73,6 +87,29 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return response()->json([
+            'message' => 'product deleted successfully'
+        ], 204);
+    }
+
+    public function statistic()
+    {
+        $allProducts = Product::latest()->get();
+        $productsCount = Product::count();
+        $cheapestProduct = Product::orderBy('price', 'asc')->first();
+        $mostExpensiveProduct = Product::orderBy('price', 'desc')->first();
+        $mostLikedProduct = Product::withCount('favoritedBy')
+            ->orderBy('favorited_by_count', 'desc')
+            ->first();
+
+        return response()->json([
+            'allProducts' => $allProducts,
+            'productsCount' => $productsCount,
+            'cheapestProduct' => $cheapestProduct,
+            'mostExpensiveProduct' => $mostExpensiveProduct,
+            'mostLikedProduct' => $mostLikedProduct
+        ], 200);
     }
 }

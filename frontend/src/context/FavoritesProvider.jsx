@@ -6,17 +6,17 @@ function FavoritesProvider({ children }) {
   const {
     data:favorites,
     error,
-    addToResource,
-    removeFromResource,
+    actionToResource
   } = useResource("favorites")
   
   const addToFavorites = async (productId) => {
     const newFavData = {product_id: productId};
-    await addToResource(newFavData);
+    const res = await actionToResource(null,'post',newFavData);
+    console.log("resssssssssssssss", res);
   }
 
   const removeFromFavorites = async (productId) => {
-    await removeFromResource(productId);
+    await actionToResource(`/${productId}`,'delete');
   }
 
   console.log("favorites", favorites);

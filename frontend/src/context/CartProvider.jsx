@@ -6,8 +6,7 @@ function CartProvider({children}) {
     const {
         data:cartItems,
         error,
-        addToResource,
-        removeFromResource,
+        actionToResource
     } = useResource("cart");
 
     const addUpdateCart = async (productId, quantity) => {
@@ -15,11 +14,11 @@ function CartProvider({children}) {
             product_id: productId,
             quantity: quantity
         };
-        await addToResource(newCartData);
+        await actionToResource(null,'post',newCartData);
     }
 
     const removeFromCart = async (cartId) => {
-        await removeFromResource(cartId);
+        await actionToResource(`/${cartId}`,'delete');
     }
 
     console.log('cart items', cartItems);

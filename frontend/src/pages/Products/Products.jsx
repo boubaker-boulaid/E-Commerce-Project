@@ -74,6 +74,7 @@ const Products = () => {
     }
   }, [page, isLoading]);
 
+  console.log("products", products);
 
   // Handle Laravel pagination: actual products are in products.data if paginated
   const actualProducts = Array.isArray(products) ? products : products.data
