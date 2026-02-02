@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('brand');
             $table->string('category');
             $table->text('description')->nullable();
-            $table->integer('stock')->default(0);
+            $table->integer('stock')->default(1);
             $table->boolean('inStock')->default(true);
             $table->string('primaryImg')->nullable();
             $table->string('secondaryImg')->nullable();

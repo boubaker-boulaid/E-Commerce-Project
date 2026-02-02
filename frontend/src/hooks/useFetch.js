@@ -6,27 +6,37 @@ const useFetch = (url) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    const fetchData = async () => {
+        if (!url) return; // Don't fetch if url is null/undefined
+        
+        try {
+            setIsLoading(true);
+            setError(null); // Clear previous errors
+            const response = await apiProducts.get(url);
+            setData(response.data);
+        } catch (err) {
+            console.error("error fetching resource", err)
+            setError(err.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setIsLoading(true);
-                const response = await apiProducts.get(url);
-                setData(response.data); // Axios response data is in .data
-            } catch (err) {
-                console.error(err);
-                setError(err.message);
-            } finally {
-                setIsLoading(false)
-            }
+        if (!url) {
+            setData([]);
+            return;
         }
         fetchData();
-    }, [url])
+    }, [url]);
 
+    // Return refetch function so it can be called manually
     return {
         data,
         isLoading,
-        error
-    }
-}
+        error,
+        refetch: fetchData
+    };
+};
 
 export default useFetch;

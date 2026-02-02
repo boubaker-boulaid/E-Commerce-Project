@@ -1,13 +1,43 @@
 import { Link } from "react-router-dom";
 import "./ProductCard.css";
-// ProductCard component - displays a single product with image, actions, and details
-function ProductCard({ primaryImg, title, category, price }) {
+import { useFavorites } from "../../hooks/useFavorites";
+import { useCart } from "../../hooks/useCart";
+
+
+function ProductCard({ id, primary_img_url, title, category, price }) {
+  const {addToFavorites, removeFromFavorites, inFavorites } = useFavorites();
+  const {addUpdateCart, inCart, removeFromCart} = useCart();
+
+  const isInCart = inCart(id);
+  const isFavorite = inFavorites(id);
+
+  const handleFavoriteClick = () => {
+    if (isFavorite) {
+      removeFromFavorites(id);
+    } else {
+      addToFavorites(id);
+    }
+  };
+
+
+  const handlePanierClick = () => {
+    if (isInCart) {
+      if (confirm("remove from cart?")) {
+        removeFromCart(id);
+      }
+    } else {
+      addUpdateCart(id, 1);
+    } 
+  }
+
+
+
   return (
     <li className="product-item">
       <div className="product-card" tabIndex="0">
         <figure className="card-banner">
           <img
-            src={primaryImg}
+            src={primary_img_url}
             width="312"
             height="350"
             loading="lazy"
@@ -22,8 +52,10 @@ function ProductCard({ primaryImg, title, category, price }) {
               <button
                 className="card-action-btn"
                 aria-labelledby="card-label-1"
+                onClick={handlePanierClick}
+                style={{color: isInCart ? "var(--bittersweet)" : ""}}
               >
-                <ion-icon name="cart-outline"></ion-icon>
+                <ion-icon name={isInCart ? "cart" : "cart-outline"}></ion-icon>
               </button>
 
               <div className="card-action-tooltip" id="card-label-1">
@@ -34,25 +66,30 @@ function ProductCard({ primaryImg, title, category, price }) {
             {/* Add to favorite */}
             <li className="card-action-item">
               <button
-                className="card-action-btn"
+                className={`card-action-btn ${isFavorite ? "active" : ""}`}
                 aria-labelledby="card-label-2"
+                onClick={handleFavoriteClick}
+                style={{ color: isFavorite ? "var(--bittersweet)" : "" }}
               >
-                <ion-icon name="heart-outline"></ion-icon>
+                <ion-icon
+                  name={isFavorite ? "heart" : "heart-outline"}
+                ></ion-icon>
               </button>
 
               <div className="card-action-tooltip" id="card-label-2">
-                Add to favorite
+                {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
               </div>
             </li>
 
             {/* Quick View */}
             <li className="card-action-item">
-              <button
+              <Link
+                to={`/products/${id}`}
                 className="card-action-btn"
                 aria-labelledby="card-label-3"
               >
                 <ion-icon name="eye-outline"></ion-icon>
-              </button>
+              </Link>
 
               <div className="card-action-tooltip" id="card-label-3">
                 Quick View
@@ -69,8 +106,7 @@ function ProductCard({ primaryImg, title, category, price }) {
               to={`/products?category=${category}`}
               className="card-cat-link"
             >
-              {" "}
-              ({category}){" "}
+              ({category})
             </Link>
           </div>
 

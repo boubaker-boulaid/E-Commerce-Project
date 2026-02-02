@@ -1,0 +1,28 @@
+.user-profile-badge {
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--rich-black-fogra-29);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--fw-600);
+  font-size: 1.2rem;
+  border: 1px solid var(--rich-black-fogra-29);
+  cursor: default;
+  transition: var(--transition-1);
+  /* Ensure it aligns well with other nav items */
+  margin-block: auto;
+}
+
+.user-profile-badge:hover {
+  color: var(--bittersweet);
+  border-color: var(--bittersweet);
+}
+
+/* Ensure the list item centers the badge */
+.nav-action-list li {
+  display: flex;
+  align-items: center;
+}

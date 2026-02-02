@@ -1,16 +1,37 @@
 <?php
 
+use App\Http\Controllers\FavoriteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::apiResource('products', ProductController::class)->only(['index', 'show']);
 
-Route::get('/test',function () {
-    return 'this the api test';
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::get('/products_statistic', [ProductController::class, 'statistic']);
+    Route::apiResource('products', ProductController::class)->except(['index', 'show']);
+
+    Route::get('/users_statistic', [UserController::class, 'statistic']);
+    Route::get('/users', [UserController::class, 'index']);
+    Route::patch('/users/{user}', [UserController::class], 'updateRole');
+    Route::delete('/users/{user}', [UserController::class, 'destroy']);
 });
 
-Route::apiResource('products',ProductController::class);
+Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+    return $request->user();
+});
 
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/favorites', [FavoriteController::class, 'index']);
+    Route::post('/favorites', [FavoriteController::class, 'store']);
+    Route::delete('/favorites/{productId}', [FavoriteController::class, 'destroy']);
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/cart', [CartController::class, 'index']);
+    Route::post('/cart', [CartController::class, 'store']);
+    Route::delete('/cart/{id}', [CartController::class, 'destroy']);
+});

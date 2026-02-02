@@ -1,3 +1,14 @@
-.favorites {
-  /* Favorites styles */
+.favorites-empty {
+  text-align: center;
+  padding: 50px 20px;
+  background: var(--cultured);
+  border-radius: 8px;
+  margin-top: 20px;
+  color: var(--onyx);
+}
+
+.favorites-empty p {
+  margin-top: 10px;
+  font-size: var(--fs-5);
+  color: var(--sonic-silver);
 }

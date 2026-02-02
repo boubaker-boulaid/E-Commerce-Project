@@ -150,6 +150,20 @@
   border-radius: 50%;
 }
 
+.user-profile-badge {
+  background-color: var(--bittersweet);
+  color: var(--white);
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  font-weight: var(--fw-600);
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -170,7 +184,6 @@
   .nav-open-btn,
   .nav-close-btn,
   .navbar .logo,
-  .nav-action-text,
   .overlay {
     display: none;
   }

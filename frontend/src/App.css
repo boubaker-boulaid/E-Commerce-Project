@@ -100,7 +100,10 @@ html {
 body {
   background: var(--white);
   font-size: 1.6rem;
-  padding-block-start: 90px;
+}
+
+.main-layout {
+  padding-top: 90px;
 }
 
 ::-webkit-scrollbar {

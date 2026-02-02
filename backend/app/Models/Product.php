@@ -35,4 +35,8 @@ class Product extends Model
     }
 
     protected $appends = ['primary_img_url', 'secondary_img_url'];
+
+    public function favoritedBy () {
+        return $this->belongsToMany(User::class, 'favorites');
+    }
 }
