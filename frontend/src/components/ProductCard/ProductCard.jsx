@@ -4,7 +4,7 @@ import { useFavorites } from "../../hooks/useFavorites";
 import { useCart } from "../../hooks/useCart";
 
 
-function ProductCard({ id, primaryImg, title, category, price }) {
+function ProductCard({ id, primary_img_url, title, category, price }) {
   const {addToFavorites, removeFromFavorites, inFavorites } = useFavorites();
   const {addUpdateCart, inCart, removeFromCart} = useCart();
 
@@ -37,7 +37,7 @@ function ProductCard({ id, primaryImg, title, category, price }) {
       <div className="product-card" tabIndex="0">
         <figure className="card-banner">
           <img
-            src={primaryImg}
+            src={primary_img_url}
             width="312"
             height="350"
             loading="lazy"

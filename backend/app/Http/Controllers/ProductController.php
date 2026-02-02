@@ -50,6 +50,10 @@ class ProductController extends Controller
     public function store(ProductStoreUpdateRequest $request)
     {
         $validated = $request->validated();
+        if ($request->hasFile('primaryImage')) {
+            $path = $request->file('primaryImage')->store('products', 'public');
+            $validated['primaryImg'] = $path;
+        }
 
         $newProduct = Product::create($validated);
 
@@ -74,6 +78,10 @@ class ProductController extends Controller
     public function update(ProductStoreUpdateRequest $request, Product $product)
     {
         $validated = $request->validated();
+        if ($request->hasFile('primaryImage')) {
+            $path = $request->file('primaryImage')->store('products', 'public');
+            $validated['primaryImg'] = $path;
+        }
 
         $product->update($validated);
 

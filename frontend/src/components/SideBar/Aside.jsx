@@ -53,8 +53,8 @@ function Aside({ user, logout }) {
 
       <button
         className="btn btn-secondary logout-btn"
-        onClick={() => {
-          logout();
+        onClick={async () => {
+          await logout();
           navigate("/");
         }}
       >

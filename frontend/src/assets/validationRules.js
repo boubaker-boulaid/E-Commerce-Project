@@ -31,13 +31,13 @@ export const nbrPositive = (fieldName) => (value) =>
 
 export const loginValidationRules = {
     email: [required('email'), email('email')],
-    password: [minLength('password', 8)],
+    password: [required('password'),minLength('password', 8)],
 };
 
 export const registerValidationRules = {
     name: [required('name'), minLength('name', 3)],
     ...loginValidationRules,
-    password_confirmation: [matches('password_confirmation', 'password')]
+    password_confirmation: [required('password'),matches('password_confirmation', 'password')]
 };
 
 export const productValidationRules = {
