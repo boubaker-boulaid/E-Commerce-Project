@@ -1,9 +1,10 @@
 import React from "react";
 import ProductForm from "../../../components/ProductForm/ProductForm";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { productValidationRules } from "../../../assets/validationRules";
 import { useForm } from "../../../hooks/useForm";
 import { useResource } from "../../../hooks/useResource";
+import "../Admin.css";
 
 function AddProduct() {
   const navigate = useNavigate();
@@ -20,7 +21,6 @@ function AddProduct() {
   const { actionToResource: AddProduct } = useResource("products");
 
   const onValidSubmit = async (data, reset) => {
-    console.log("product data ", data);
     const formData = new FormData();
 
     formData.append("name", data.name);
@@ -31,10 +31,7 @@ function AddProduct() {
     formData.append("stock", data.stock);
     formData.append("primaryImage", data.primaryImage);
 
-    console.log("product data ", formData);
-
     const res = await AddProduct(null, "post", formData);
-    console.log("product addedddddddd", res);
 
     if (res) {
         alert("product added")
@@ -47,8 +44,21 @@ function AddProduct() {
     useForm(initialData, productValidationRules, onValidSubmit);
 
   return (
-    <>
-      <div>add product</div>
+    <div className="admin-page">
+      <div className="admin-page-header">
+        <div>
+          <h2 className="h2 section-title" style={{ textAlign: "left" }}>
+            Add Product
+          </h2>
+          <p className="admin-page-subtitle">
+            New products appear in the shop straight away.
+          </p>
+        </div>
+        <Link to="/admin/products" className="btn btn-secondary">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+          Back to products
+        </Link>
+      </div>
 
       <ProductForm
         formData={formData}
@@ -57,7 +67,7 @@ function AddProduct() {
         handleSubmit={handleSubmit}
         imagePreview={imagePreview}
       />
-    </>
+    </div>
   );
 }
 

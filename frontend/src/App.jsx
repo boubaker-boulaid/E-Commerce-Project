@@ -9,7 +9,6 @@ import "./App.css";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
-import { useAuth } from "./hooks/useAuth";
 import MainLayout from "./layouts/MainLayout";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import UserRoutes from "./routes/UserRoutes";
@@ -20,7 +19,7 @@ import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import AllProducts from "./pages/Admin/Products/AllProducts";
 import AllUsers from "./pages/Admin/Users/AllUsers";
 import AddProduct from "./pages/Admin/Products/AddProduct";
-import EditeProduct from "./pages/Admin/Products/EditeProduct";
+import EditProduct from "./pages/Admin/Products/EditProduct";
 
 function App() {
   return (
@@ -32,7 +31,7 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="products" element={<AllProducts />} />
             <Route path="products/add" element={<AddProduct />} />
-            <Route path="products/edite/:id" element={<EditeProduct />} />
+            <Route path="products/edit/:id" element={<EditProduct />} />
             <Route path="users" element={<AllUsers />} />
         </Route>
 
