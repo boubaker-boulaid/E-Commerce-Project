@@ -4,7 +4,7 @@ import { useFavorites } from "../../hooks/useFavorites";
 import { useCart } from "../../hooks/useCart";
 
 
-function ProductCard({ id, primary_img_url, title, category, price }) {
+function ProductCard({ id, primary_img_url, name, category, price }) {
   const {addToFavorites, removeFromFavorites, inFavorites } = useFavorites();
   const {addUpdateCart, inCart, removeFromCart} = useCart();
 
@@ -41,7 +41,7 @@ function ProductCard({ id, primary_img_url, title, category, price }) {
             width="312"
             height="350"
             loading="lazy"
-            alt={title}
+            alt={name}
             className="image-contain"
           />
 
@@ -112,11 +112,11 @@ function ProductCard({ id, primary_img_url, title, category, price }) {
 
           {/* Product Title */}
           <h3 className="h3 card-title">
-            <a href="#">{title} </a>
+            <Link to={`/products/${id}`}>{name}</Link>
           </h3>
 
           {/* Product Price */}
-          <data className="card-price" value="180.85">
+          <data className="card-price" value={price}>
             {price} $
           </data>
         </div>
