@@ -23,7 +23,7 @@ class ProductFactory extends Factory
             'category' => $this->faker->randomElement(['Sports', 'Men', 'Women']),
             'description' => $this->faker->sentence(20),
             'stock' => $this->faker->numberBetween(1, 100),
-            'primaryImg' => './assets/images/product-' . $this->faker->numberBetween(1, 8) . '.jpg',
+            'primaryImg' => '/assets/images/product-' . $this->faker->numberBetween(1, 8) . '.jpg',
         ];
     }
 }

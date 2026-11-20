@@ -34,7 +34,7 @@ class UserController extends Controller
     }
 
     public function destroy (User $user) {
-        if (auth()->user()->id === $user.id) {
+        if (auth()->id() === $user->id) {
             return response()->json([
                 'message' => 'error : you can not delete your self',
             ], 403);

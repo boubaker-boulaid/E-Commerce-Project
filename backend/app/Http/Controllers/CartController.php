@@ -47,7 +47,11 @@ class CartController extends Controller
      */
     public function destroy(string $id)
     {
-        Cart::where('id',$id)->orWhere('product_id',$id)->where('user_id',auth()->id())->delete();
+        Cart::where('user_id', auth()->id())
+            ->where(function ($query) use ($id) {
+                $query->where('id', $id)->orWhere('product_id', $id);
+            })
+            ->delete();
 
         return response()->json([
             'message' => 'product removed from cart'
