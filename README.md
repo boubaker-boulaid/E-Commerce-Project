@@ -1,124 +1,180 @@
-# E-Commerce Project
+# Footcap: Sports Shoes Store
 
-A full-stack e-commerce web application for sports shoes, built with React and Laravel. This project features a modern, responsive user interface with a robust backend API for managing products, users, and orders.
+An online shoe store built with React and Laravel, as a portfolio project. Visitors browse the shoes, filter them by brand and sort them by price or date, and open each shoe's page to pick a size and quantity. Signed-in customers keep a cart and a list of favourites. Admins get a dashboard where they manage products and user accounts.
 
-## 📋 Project Description
+The React app talks to a Laravel API. Logins use Laravel Sanctum's cookie-based session for single-page apps, so no token is kept in the browser.
 
-This e-commerce platform is designed to provide a seamless online shopping experience for sports shoes. The application includes:
+**Live demo:** coming soon
 
-- **Product Catalog**: Browse and search through a wide selection of sports shoes
-- **Product Details**: View detailed information, images, and specifications for each product
-- **Shopping Cart**: Add products to cart and manage quantities
-- **User Authentication**: Secure user registration and login system
-- **User Profile**: Manage user account information
-- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
-- **RESTful API**: Backend API for all data operations
+![The home page](docs/screenshots/home.webp)
 
-## 🛠️ Technologies Used
+> This is a demo store. The products come from the seeder, the prices are invented, and the checkout button does nothing. The page design is based on the free [Footcap template](https://github.com/codewithsadee/footcap) by codewithsadee. The shoe photos belong to their owners.
 
-### Frontend
+## Features
 
-- **React** (v19.2.0) - JavaScript library for building user interfaces
-- **React Router DOM** (v7.12.0) - Client-side routing
-- **Axios** (v1.13.2) - HTTP client for API requests
-- **Vite** (v7.2.4) - Fast build tool and development server
-- **CSS3** - Custom styling with modern CSS features
-- **ESLint** - Code linting and quality assurance
+**The shop**
 
-### Backend
+- A home page with a hero banner, men's, women's and sports collections, and a photo strip.
+- A product grid with brand filters (Nike, Adidas, Puma, Bata, Apex), sorting by date or price, and 8 products per page.
+- A page for each product with its brand, price, description, stock, a size picker and a quantity picker.
+- About and Contact pages, and a 404 page.
+- A layout for phones, with a menu button in the header.
 
-- **Laravel** (v12.0) - PHP framework for web applications
-- **PHP** (^8.2) - Server-side programming language
-- **MySQL** - Relational database management system
-- **Laravel Sanctum** (v4.0) - API authentication
-- **Laravel Tinker** (v2.10.1) - REPL for Laravel
-- **Faker PHP** (v1.23) - Generate fake data for testing
-- **Pest** (v4.1) - Testing framework
+**Customers**
 
-### Development Tools
+- Registration, login and logout, plus password reset and e-mail verification endpoints on the API.
+- A cart saved on the server: add products, change quantities, remove them, and see the subtotal, shipping and total.
+- A favourites list, toggled with the heart button on any product card.
+- The cart and favourites pages are only open to signed-in users. Counters in the header show how many items each one holds.
 
-- **Git** - Version control
-- **Composer** - PHP dependency manager
-- **npm** - Node package manager
+**Admins**
 
+- A separate admin area under `/admin`. Admins are sent there when they log in, and other users can't open it.
+- A dashboard with the number of users and products.
+- A product table with each product's image, brand, category, price and stock. Low stock is highlighted, and each row has edit and delete buttons.
+- A form to add or edit a product, with its name, brand, price, stock, category, description and an image upload. When editing, the current image stays unless a new one is picked.
+- A user table where admins change a user's role or delete the account. Admins can't delete their own account.
 
+## Screenshots
 
+| Products | One product |
+|---|---|
+| ![The product grid with brand filters](docs/screenshots/products.webp) | ![A product page with size and quantity](docs/screenshots/product.webp) |
+| **Cart** | **Favourites** |
+| ![The cart with its order summary](docs/screenshots/cart.webp) | ![The favourites page](docs/screenshots/favorites.webp) |
+| **Admin dashboard** | **Admin product list** |
+| ![The admin dashboard](docs/screenshots/admin-dashboard.webp) | ![The admin table of products with edit and delete buttons](docs/screenshots/admin-products.webp) |
+| **Admin user list** | **Editing a product** |
+| ![The admin table of users with role pickers](docs/screenshots/admin-users.webp) | ![The admin form for editing a product](docs/screenshots/admin-edit-product.webp) |
 
-##  How to Run the Project
+On phones:
 
-### Prerequisites
+![The home page, the product grid and a product page on a phone](docs/screenshots/mobile.webp)
 
-Before running this project, make sure you have the following installed:
+## Tech stack
 
-- **Node.js** (v16 or higher)
-- **npm** (v8 or higher)
-- **PHP** (v8.2 or higher)
-- **Composer** (v2 or higher)
-- **MySQL** (v8 or higher)
-- **Git**
+| Part | Built with |
+|---|---|
+| Frontend | React 19, React Router 7, Axios, Vite 7, plain CSS |
+| Backend | PHP 8.2+, Laravel 12, Laravel Sanctum 4 (SPA cookie auth), Laravel Breeze (API auth) |
+| Database | MySQL |
+| Tests and tools | Pest 4, Laravel Pint, ESLint |
 
-### Installation Steps
+## How it's organised
 
-#### 1. Clone the Repository
-
-```bash
-git clone <repository-url>
-cd "E-Commerce Project"
+```
+backend/                      The Laravel API
+  app/Http/Controllers/       Products, cart, favourites, users and the auth controllers
+  app/Http/Middleware/        IsAdmin, which guards the admin endpoints
+  database/                   Migrations, factories and seeders (20 demo products and an admin)
+  routes/api.php              The REST API
+  routes/auth.php             Register, login, logout, password reset, e-mail verification
+  tests/Feature/              Pest tests for auth, the admin endpoints and the cart
+frontend/                     The React app
+  src/pages/                  Shop pages, cart, favourites, login, register and the admin pages
+  src/components/             Header, footer, product card, product form and others
+  src/context/, src/hooks/    Auth, cart and favourites state, and data-fetching hooks
+  src/routes/                 Route guards for signed-in users and admins
+  public/assets/images/       Product photos, banners and other images
+docs/screenshots/             The screenshots in this README
 ```
 
-#### 2. Backend Setup
+## Run it on your computer
+
+You need PHP 8.2 or newer, Composer 2, Node.js 20.19 or newer, and MySQL 8 (or MariaDB).
+
+**1. Set up the backend**
 
 ```bash
-# Navigate to backend directory
 cd backend
-
-# Install PHP dependencies
 composer install
-
-# Create environment file
 cp .env.example .env
-
-# Generate application key
 php artisan key:generate
-
-# Configure your database in .env file
-# Update the following variables:
-# DB_DATABASE=your_database_name
-# DB_USERNAME=your_database_username
-# DB_PASSWORD=your_database_password
-
-# Run database migrations
-php artisan migrate
-
-# (Optional) Seed the database with sample data
-php artisan db:seed
-
-# Start the Laravel development server
-php artisan serve
 ```
 
-The backend API will be available at `http://localhost:8000`
+Create an empty MySQL database. Then fill in the database settings in `backend/.env`, and set the address of the React app so the API accepts its requests:
 
-#### 3. Frontend Setup
+```env
+DB_DATABASE=shoes_shop
+DB_USERNAME=your_user
+DB_PASSWORD=your_password
 
-Open a new terminal window:
+APP_URL=http://localhost:8000
+FRONTEND_URL=http://localhost:5173
+```
+
+**2. Create the tables and the demo data**
 
 ```bash
-# Navigate to frontend directory
+php artisan migrate --seed     # 20 demo products and an admin account
+php artisan storage:link       # makes uploaded product images reachable
+```
+
+The seeder creates an admin account: **test@example.com** / **password**. Register on the site to get a regular customer account.
+
+**3. Start the API**
+
+```bash
+php artisan serve              # http://localhost:8000
+```
+
+**4. Start the React app** (in a second terminal)
+
+```bash
 cd frontend
-
-# Install Node dependencies
 npm install
+npm run dev                    # http://localhost:5173
+```
 
-# Start the development server
-npm run dev
+Open **http://localhost:5173**.
 
+The React app expects the API at `http://localhost:8000`. Keep both servers on `localhost`, not `127.0.0.1`, or the browser won't send the login cookie.
 
-The frontend application will be available at `http://localhost:5173`
+**Checks**
 
-### Running Both Servers
+```bash
+cd backend && php artisan test     # Pest
+cd backend && ./vendor/bin/pint    # code style
+cd frontend && npm run lint        # ESLint
+```
 
-You need to run both the backend and frontend servers simultaneously:
+## API
 
+The React app first calls `GET /sanctum/csrf-cookie`, then logs in with `POST /login`. After that the browser sends the session cookie with each request.
 
+**Auth** (no `/api` prefix)
 
+| Method | Endpoint | Who |
+|---|---|---|
+| POST | `/register`, `/login` | guests |
+| POST | `/logout` | signed-in users |
+| POST | `/forgot-password`, `/reset-password` | guests |
+| GET | `/verify-email/{id}/{hash}` | signed-in users |
+
+**Shop** (under `/api`)
+
+| Method | Endpoint | Who |
+|---|---|---|
+| GET | `/api/products?brand=&category=&sort=price-asc&inStock=1&page=1` | anyone (8 per page) |
+| GET | `/api/products/{id}` | anyone |
+| GET | `/api/user` | signed-in users |
+| GET / POST | `/api/cart` (`product_id`, `quantity`) | signed-in users |
+| DELETE | `/api/cart/{id}` | signed-in users |
+| GET / POST | `/api/favorites` (`product_id`) | signed-in users |
+| DELETE | `/api/favorites/{productId}` | signed-in users |
+
+**Admin** (under `/api`)
+
+| Method | Endpoint | Who |
+|---|---|---|
+| POST / PUT / DELETE | `/api/products[/{id}]` | admins (send image uploads as `POST` with `_method=PUT`) |
+| GET | `/api/products_statistic`, `/api/users_statistic` | admins |
+| GET | `/api/users` | admins |
+| PATCH | `/api/users/{id}` (`role`: `user` or `admin`) | admins |
+| DELETE | `/api/users/{id}` | admins (not their own account) |
+
+## Still to do
+
+- Checkout and orders
+- Search
+- Moving the API address into a Vite environment variable
