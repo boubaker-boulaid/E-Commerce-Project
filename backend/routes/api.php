@@ -15,7 +15,7 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 
     Route::get('/users_statistic', [UserController::class, 'statistic']);
     Route::get('/users', [UserController::class, 'index']);
-    Route::patch('/users/{user}', [UserController::class], 'updateRole');
+    Route::patch('/users/{user}', [UserController::class, 'updateRole']);
     Route::delete('/users/{user}', [UserController::class, 'destroy']);
 });
 

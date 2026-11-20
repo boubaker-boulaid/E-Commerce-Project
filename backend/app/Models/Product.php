@@ -20,18 +20,35 @@ class Product extends Model
 
     public function getPrimaryImgUrlAttribute()
     {
-        if (str_starts_with($this->primaryImg, 'http') || str_starts_with($this->primaryImg, './')) {
-            return $this->primaryImg;
-        }
-        return $this->primaryImg ? asset('storage/' . $this->primaryImg) : null;
+        return $this->imageUrl($this->primaryImg);
     }
 
     public function getSecondaryImgUrlAttribute()
     {
-        if (str_starts_with($this->secondaryImg, 'http') || str_starts_with($this->secondaryImg, './')) {
-            return $this->secondaryImg;
+        return $this->imageUrl($this->secondaryImg);
+    }
+
+    /**
+     * Turn a stored image path into a URL the React app can load.
+     * Seeded images live in the frontend's public folder (/assets/...),
+     * uploaded ones on the public storage disk.
+     */
+    private function imageUrl(?string $path): ?string
+    {
+        if (! $path) {
+            return null;
         }
-        return $this->secondaryImg ? asset('storage/' . $this->secondaryImg) : null;
+        if (str_starts_with($path, 'http')) {
+            return $path;
+        }
+        if (str_starts_with($path, './')) {
+            return substr($path, 1);
+        }
+        if (str_starts_with($path, '/')) {
+            return $path;
+        }
+
+        return asset('storage/'.$path);
     }
 
     protected $appends = ['primary_img_url', 'secondary_img_url'];

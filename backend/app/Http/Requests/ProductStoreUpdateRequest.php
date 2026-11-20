@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProductStoreUpdateRequest extends FormRequest
 {
@@ -22,13 +23,13 @@ class ProductStoreUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:products,name|',
+            'name' => ['required', 'string', Rule::unique('products', 'name')->ignore($this->route('product'))],
             'price' => 'required|numeric',
             'brand' => 'string',
             'category' => 'string',
             'description' => 'nullable|string',
             'stock' => 'integer',
-            'primaryImage' => 'nullable|image|mimes:jpg,png|max:2048'
+            'primaryImage' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
         ];
     }
 }
