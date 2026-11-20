@@ -23,7 +23,7 @@ const ProductForm = ({
               onChange={handleChange}
               value={formData.name}
               className="input-field"
-              placeholder="e.g. Wireless Headphones"
+              placeholder="e.g. Air Runner Pro"
             />
             {formErrors.name && (
               <span className="error-message"> {formErrors.name} </span>
@@ -38,7 +38,7 @@ const ProductForm = ({
               onChange={handleChange}
               value={formData.brand}
               className="input-field"
-              placeholder="e.g. Sony"
+              placeholder="e.g. Nike"
             />
             {formErrors.brand && (
               <span className="error-message"> {formErrors.brand} </span>
@@ -88,9 +88,9 @@ const ProductForm = ({
             onChange={handleChange}
           >
             <option value="">Select Category</option>
-            <option value="home">Women</option>
-            <option value="beauty">Men</option>
-            <option value="sports">Sports</option>
+            <option value="Women">Women</option>
+            <option value="Men">Men</option>
+            <option value="Sports">Sports</option>
           </select>
           {formErrors.category && (
             <span className="error-message"> {formErrors.category} </span>

@@ -66,7 +66,7 @@ const Cart = () => {
                 <div className="item-img-wrapper">
                   <img
                     src={item.product.primaryImg}
-                    alt={item.product.title}
+                    alt={item.product.name}
                     className="item-img"
                   />
                 </div>
@@ -75,7 +75,7 @@ const Cart = () => {
                   <div className="item-main-info">
                     <div>
                       <p className="item-category">{item.product.category}</p>
-                      <h3 className="item-name">{item.product.title}</h3>
+                      <h3 className="item-name">{item.product.name}</h3>
                     </div>
                     <p className="item-price">
                       ${item.product.price}
