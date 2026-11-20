@@ -1,0 +1,164 @@
+/* Shared styles for the admin list and form pages */
+
+.admin-page {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.admin-page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.admin-page-header h2 {
+  margin-bottom: 5px;
+}
+
+.admin-page-subtitle {
+  color: var(--onyx);
+  font-size: var(--fs-7);
+}
+
+.admin-page-header .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+}
+
+.admin-card {
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px hsla(0, 0%, 0%, 0.05);
+  overflow-x: auto;
+}
+
+/* The template's reset makes table and tbody display: block; undo that here. */
+.admin-table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-7);
+}
+
+.admin-table tbody {
+  display: table-row-group;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 14px 18px;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.admin-table th {
+  color: var(--onyx);
+  font-weight: var(--fw-600);
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--gainsboro);
+}
+
+.admin-table tbody tr + tr td {
+  border-top: 1px solid var(--cultured);
+}
+
+.admin-table tbody tr:hover {
+  background: hsla(200, 12%, 95%, 0.6);
+}
+
+.admin-product-cell {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--rich-black-fogra-29);
+  font-weight: var(--fw-500);
+}
+
+.admin-product-cell img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  background: var(--cultured);
+  border-radius: 6px;
+}
+
+.admin-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: hsla(5, 100%, 69%, 0.12);
+  color: var(--bittersweet);
+  font-weight: var(--fw-600);
+}
+
+.admin-muted {
+  color: var(--onyx);
+}
+
+.admin-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: var(--fw-500);
+  background: var(--cultured);
+  color: var(--onyx);
+}
+
+.admin-badge.low {
+  background: hsla(5, 100%, 69%, 0.12);
+  color: var(--bittersweet);
+}
+
+.admin-role-select {
+  padding: 6px 10px;
+  border: 1px solid var(--gainsboro);
+  border-radius: 6px;
+  background: var(--white);
+  font: inherit;
+  cursor: pointer;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-icon-btn {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  border: 1px solid var(--gainsboro);
+  background: var(--white);
+  color: var(--onyx);
+  font-size: 1.7rem;
+  transition: var(--transition-1);
+}
+
+.admin-icon-btn:is(:hover, :focus-visible) {
+  border-color: var(--rich-black-fogra-29);
+  color: var(--rich-black-fogra-29);
+}
+
+.admin-icon-btn.danger:is(:hover, :focus-visible) {
+  border-color: var(--bittersweet);
+  color: var(--bittersweet);
+}
+
+.admin-empty {
+  padding: 40px;
+  text-align: center;
+  color: var(--onyx);
+}

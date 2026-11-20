@@ -21,6 +21,7 @@ export const useResource = (url) => {
     return {
         data,
         error,
+        refetch,
         actionToResource
     }
 }
